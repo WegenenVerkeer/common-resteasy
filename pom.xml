@@ -82,6 +82,14 @@
                 <version>1.1.1</version>
             </dependency>
 
+            <dependency>
+                <groupId>be.eliwan</groupId>
+                <artifactId>ew-profiling</artifactId>
+                <version>1.0</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
             <!-- Resteasy -->
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>

@@ -7,6 +7,7 @@
 
 package be.wegenenverkeer.common.resteasy.logging;
 
+import be.eliwan.profiling.api.ProfilingSink;
 import be.wegenenverkeer.common.resteasy.exception.ExceptionUtil;
 import be.wegenenverkeer.common.resteasy.exception.ValidationException;
 import be.wegenenverkeer.common.resteasy.json.DcJsonMapper;
@@ -70,7 +71,7 @@ public class PreProcessLoggingInterceptor
 
     @Autowired(required = false)
     @Qualifier("restProfilingRegistrar")
-    private ProfilingRegistrar profilingContainer = new ProfilingRegistrar() {
+    private ProfilingSink profilingContainer = new ProfilingSink() {
         @Override
         public void register(String group, long duration) {
             // do nothing
