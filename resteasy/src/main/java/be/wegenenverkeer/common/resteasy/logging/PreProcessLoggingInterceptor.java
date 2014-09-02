@@ -196,7 +196,14 @@ public class PreProcessLoggingInterceptor
             sb.append("\nOutput document:\n");
 
             try {
-                if (result instanceof String) {
+                if (result.getClass().isAnnotationPresent(DoNotLog.class)) {
+                    sb.append("<Not serialized " + result.getClass().toString() + ">");
+                } else if (response.getResourceMethod().isAnnotationPresent(DoNotLogResponse.class)) {
+                    sb.append(
+                            String.format("<Not serialized response from method '%s' in %s>",
+                                    response.getResourceMethod().getName(),
+                                    response.getResourceMethod().getDeclaringClass().toString()));
+                } else if (result instanceof String) {
                     sb.append(result);
                 } else {
                     String output = MAPPER.writeValueAsString(result);
