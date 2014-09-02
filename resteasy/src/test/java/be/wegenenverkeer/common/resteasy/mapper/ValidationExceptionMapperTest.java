@@ -8,7 +8,7 @@
 package be.wegenenverkeer.common.resteasy.mapper;
 
 import be.wegenenverkeer.common.resteasy.exception.ValidationException;
-import be.wegenenverkeer.common.resteasy.json.DcJsonMapper;
+import be.wegenenverkeer.common.resteasy.json.RestJsonMapper;
 import be.wegenenverkeer.common.resteasy.logging.PreProcessLoggingInterceptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class ValidationExceptionMapperTest {
     private PreProcessLoggingInterceptor preProcessLoggingInterceptor;
 
     @Spy
-    private DcJsonMapper jsonMapper = new DcJsonMapper();
+    private RestJsonMapper jsonMapper = new RestJsonMapper();
 
     @Mock
     private HttpServletRequest request;

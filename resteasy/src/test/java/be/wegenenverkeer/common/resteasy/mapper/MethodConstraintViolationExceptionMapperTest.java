@@ -7,7 +7,7 @@
 
 package be.wegenenverkeer.common.resteasy.mapper;
 
-import be.wegenenverkeer.common.resteasy.json.DcJsonMapper;
+import be.wegenenverkeer.common.resteasy.json.RestJsonMapper;
 import be.wegenenverkeer.common.resteasy.logging.PreProcessLoggingInterceptor;
 import org.hibernate.validator.method.MethodConstraintViolation;
 import org.hibernate.validator.method.MethodConstraintViolationException;
@@ -38,7 +38,7 @@ public class MethodConstraintViolationExceptionMapperTest {
     private MethodConstraintViolationExceptionMapper mapper;
 
     @Spy
-    private DcJsonMapper jsonMapper = new DcJsonMapper();
+    private RestJsonMapper jsonMapper = new RestJsonMapper();
 
     @Mock
     private PreProcessLoggingInterceptor preProcessLoggingInterceptor;

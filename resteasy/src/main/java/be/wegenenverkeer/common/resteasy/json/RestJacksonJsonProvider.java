@@ -19,13 +19,13 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 @Component
-public class DcJacksonJsonProvider extends JacksonJsonProvider {
+public class RestJacksonJsonProvider extends JacksonJsonProvider {
 
     /**
      * No-arguments constructor.
      */
-    public DcJacksonJsonProvider() {
-        this(new DcJsonMapper());
+    public RestJacksonJsonProvider() {
+        this(new RestJsonMapper());
     }
 
     /**
@@ -33,8 +33,8 @@ public class DcJacksonJsonProvider extends JacksonJsonProvider {
      *
      * @param annotationsToUse annotations to use
      */
-    public DcJacksonJsonProvider(Annotations... annotationsToUse) {
-        this(new DcJsonMapper(), annotationsToUse);
+    public RestJacksonJsonProvider(Annotations... annotationsToUse) {
+        this(new RestJsonMapper(), annotationsToUse);
     }
 
     /**
@@ -42,8 +42,8 @@ public class DcJacksonJsonProvider extends JacksonJsonProvider {
      *
      * @param mapper object mapper to use - overwritten by our object mapper.
      */
-    public DcJacksonJsonProvider(ObjectMapper mapper) {
-        super(new DcJsonMapper());
+    public RestJacksonJsonProvider(ObjectMapper mapper) {
+        super(new RestJsonMapper());
     }
 
     /**
@@ -52,8 +52,8 @@ public class DcJacksonJsonProvider extends JacksonJsonProvider {
      * @param mapper object mapper to use - overwritten by our object mapper.
      * @param annotationsToUse annotations to use
      */
-    public DcJacksonJsonProvider(ObjectMapper mapper, Annotations[] annotationsToUse) {
-        super(new DcJsonMapper(), annotationsToUse);
+    public RestJacksonJsonProvider(ObjectMapper mapper, Annotations[] annotationsToUse) {
+        super(new RestJsonMapper(), annotationsToUse);
     }
 
 }

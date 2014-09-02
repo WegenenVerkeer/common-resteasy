@@ -19,12 +19,12 @@ import org.springframework.stereotype.Component;
  * Main entry for the Json serializer/deserializer.
  */
 @Component
-public class DcJsonMapper extends ObjectMapper {
+public class RestJsonMapper extends ObjectMapper {
 
     /**
      * No-arguments constructor.
      */
-    public DcJsonMapper() {
+    public RestJsonMapper() {
         super();
 
         this.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);

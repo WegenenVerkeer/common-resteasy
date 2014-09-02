@@ -8,7 +8,7 @@
 package be.wegenenverkeer.common.resteasy.mapper;
 
 import be.wegenenverkeer.common.resteasy.exception.ExceptionUtil;
-import be.wegenenverkeer.common.resteasy.json.DcJsonMapper;
+import be.wegenenverkeer.common.resteasy.json.RestJsonMapper;
 import be.wegenenverkeer.common.resteasy.logging.PreProcessLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ import javax.ws.rs.ext.Provider;
 public class ConstraintViolationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
 
     @Autowired
-    private DcJsonMapper jsonMapper;
+    private RestJsonMapper jsonMapper;
 
     @Autowired
     private PreProcessLoggingInterceptor preProcessLoggingInterceptor;

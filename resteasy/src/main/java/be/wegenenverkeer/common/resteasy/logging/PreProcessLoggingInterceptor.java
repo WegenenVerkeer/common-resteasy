@@ -10,8 +10,8 @@ package be.wegenenverkeer.common.resteasy.logging;
 import be.eliwan.profiling.api.ProfilingSink;
 import be.wegenenverkeer.common.resteasy.exception.ExceptionUtil;
 import be.wegenenverkeer.common.resteasy.exception.ValidationException;
-import be.wegenenverkeer.common.resteasy.json.DcJsonMapper;
 import be.wegenenverkeer.common.resteasy.json.InputStreamSerializer;
+import be.wegenenverkeer.common.resteasy.json.RestJsonMapper;
 import org.jboss.resteasy.annotations.interception.ServerInterceptor;
 import org.jboss.resteasy.core.ResourceMethod;
 import org.jboss.resteasy.core.ServerResponse;
@@ -53,7 +53,7 @@ import javax.ws.rs.ext.Provider;
 public class PreProcessLoggingInterceptor
         implements InitializingBean, PreProcessInterceptor, MessageBodyReaderInterceptor, PostProcessInterceptor {
     private static final Logger LOG = LoggerFactory.getLogger(PreProcessLoggingInterceptor.class);
-    private static final DcJsonMapper MAPPER = new DcJsonMapper();
+    private static final RestJsonMapper MAPPER = new RestJsonMapper();
     private static final String NEWLINE = "\n";
     private static final String INDENT = "\n\t";
     private static final String ARROW = " -> ";
