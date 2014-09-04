@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This file is part of wegenenverkeer common-resteasy.
+  ~ Copyright (c) AWV Agentschap Wegen en Verkeer, Vlaamse Gemeenschap
+  ~ The program is available in open source according to the Apache License, Version 2.0.
+  ~ For full licensing details, see LICENSE.txt in the project root.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Set up annotation based IoC (needed for @AutoWired) -->
+    <context:annotation-config/>
+
+    <!-- Scan for components. -->
+    <context:component-scan base-package="be.wegenenverkeer.common.resteasy"/>
+
+    <!-- Define profiling containers. -->
+
+    <bean name="restProfilingRegistrar" class="be.eliwan.profiling.service.ProfilingContainer">
+        <property name="ringSize" value="128" />
+    </bean>
+    <bean name="jdbcServiceProfiling" class="be.eliwan.profiling.service.ProfilingContainer">
+        <property name="ringSize" value="128" />
+    </bean>
+    <bean name="jdbcMethodProfiling" class="be.eliwan.profiling.service.ProfilingContainer">
+        <property name="ringSize" value="128" />
+    </bean>
+    <bean name="gatewayServiceProfiling" class="be.eliwan.profiling.service.ProfilingContainer">
+        <property name="ringSize" value="128" />
+    </bean>
+    <bean name="gatewayMethodProfiling" class="be.eliwan.profiling.service.ProfilingContainer">
+        <property name="ringSize" value="128" />
+    </bean>
+
+</beans>

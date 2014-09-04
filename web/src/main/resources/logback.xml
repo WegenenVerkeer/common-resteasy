@@ -1,0 +1,34 @@
+<!--
+  ~ This file is part of wegenenverkeer common-resteasy.
+  ~ Copyright (c) AWV Agentschap Wegen en Verkeer, Vlaamse Gemeenschap
+  ~ The program is available in open source according to the Apache License, Version 2.0.
+  ~ For full licensing details, see LICENSE.txt in the project root.
+  -->
+
+<configuration debug="true" scan="true">
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>~%date{yyyy-MM-dd'T'HH:mm:ss.SSSZ} [%thread] %-5level %logger{36} - %msg%n%xEx</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- onderstaande logger wordt alleen maar toegevoegd aan de appenders opgenomen in de root-node -->
+    <logger name="be.wegenenverkeer.common.resteasy" level="INFO"/>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+
+    <!-- Hibernate show SQL
+    <logger name="org.hibernate.hql.ast.QueryTranslatorImpl" level="DEBUG"/>
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <logger name="org.hibernate.type" level="TRACE"/>
+    <logger name="org.hibernate.tool.hbm2ddl" level="DEBUG" />
+    <logger name="org.hibernate.loader.hql.QueryLoader" level="DEBUG"/>
+    -->
+
+</configuration>

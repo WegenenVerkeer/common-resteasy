@@ -20,8 +20,8 @@
     <artifactId>common-resteasy</artifactId>
     <packaging>jar</packaging>
 
-    <name>WegenenVerkeer common RestEASY</name>
-    <description>RestEASY helper stuff froms for logging, profiling and serialization.</description>
+    <name>WegenenVerkeer common RESTEasy</name>
+    <description>RESTEasy helper stuff froms for logging, profiling and serialization.</description>
 
     <dependencies>
 
