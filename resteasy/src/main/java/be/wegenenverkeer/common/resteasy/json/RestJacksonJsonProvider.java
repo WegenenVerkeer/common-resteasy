@@ -12,6 +12,9 @@ import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Component;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.Provider;
 
 /**
@@ -19,6 +22,8 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 @Component
+@Consumes({ MediaType.APPLICATION_JSON, "application/*+json", "text/json" })
+@Produces({ MediaType.APPLICATION_JSON, "application/*+json", "text/json" })
 public class RestJacksonJsonProvider extends JacksonJsonProvider {
 
     /**
