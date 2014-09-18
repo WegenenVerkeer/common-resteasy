@@ -47,7 +47,10 @@ public class MethodConstraintViolationExceptionMapper implements ExceptionMapper
         preProcessLoggingInterceptor.postProcessError(exception,
                 "Applicatie keerde terug met een (verwachtte) ConstraintViolation:");
         try {
-            return Response.status(Response.Status.PRECONDITION_FAILED).entity(getJsonString(exception)).build();
+            return Response.status(Response.Status.PRECONDITION_FAILED).entity(getJsonString(exception))
+                    .header("Access-Control-Allow-Origin", request.getHeader("Origin"))
+                    .header("Access-Control-Allow-Credentials", true)
+                    .build();
         } catch (IOException e) {
             ExceptionUtil eu = new ExceptionUtil(exception);
             return Response.status(Response.Status.PRECONDITION_FAILED)
