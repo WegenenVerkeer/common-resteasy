@@ -23,11 +23,17 @@
     <description>General parent for WegenenVerkeer (AWV) common RESTEasy project.</description>
     <url>http://www.wegenenverkeer.be</url>
 
+    <modules>
+        <module>resteasy</module>
+        <module>web</module>
+    </modules>
+
     <scm>
         <connection>scm:git:git@github.com:WegenenVerkeer/common-resteasy.git</connection>
         <developerConnection>scm:git:git@github.com:WegenenVerkeer/common-restease.git</developerConnection>
         <url>git@github.com:WegenenVerkeer/common-resteasy.git</url>
-  </scm>
+    </scm>
+
     <!-- Release to AWV repository. -->
     <distributionManagement>
         <repository>
@@ -48,11 +54,6 @@
         <jackson.version>1.9.13</jackson.version>
         <spring.version>3.1.0.RELEASE</spring.version>
     </properties>
-
-    <modules>
-        <module>resteasy</module>
-        <module>web</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -301,6 +302,62 @@
     </dependencyManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <version>1.4.5</version>
+                    <executions>
+                        <execution>
+                            <id>start-jetty</id>
+                            <phase>pre-integration-test</phase>
+                            <goals><goal>start</goal></goals>
+                            <!--
+                            <configuration>
+                                <configuration>
+                                    <properties>
+                                        <cargo.jvmargs>-Xmx1024m -Xms256m -XX:MaxPermSize=256m</cargo.jvmargs>
+                                    </properties>
+                                </configuration>
+                            </configuration>
+                            -->
+                        </execution>
+                        <execution>
+                            <id>stop-jetty</id>
+                            <phase>post-integration-test</phase>
+                            <goals><goal>stop</goal></goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <container>
+                            <containerId>jetty8x</containerId>
+                            <!--<type>embedded</type>-->
+                            <log>${basedir}/target/cargo.log</log>
+                            <output>${basedir}/target/jetty.log</output>
+                        </container>
+
+                        <configuration>
+                            <properties>
+                                <cargo.servlet.port>8123</cargo.servlet.port>
+                                <cargo.logging>high</cargo.logging>
+                                <cargo.jvmargs>-Dzzz</cargo.jvmargs>
+                            </properties>
+                        </configuration>
+
+                        <deployables>
+                            <deployable>
+                                <pingURL>http://localhost:8123/common-resteasy/rest/profile</pingURL>
+                                <pingTimeout>600000</pingTimeout> <!-- 5 min, allow for slow Jenkins -->
+                                <properties>
+                                    <context>common-resteasy</context>
+                                </properties>
+                            </deployable>
+                        </deployables>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -358,65 +415,8 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>        </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.codehaus.cargo</groupId>
-                    <artifactId>cargo-maven2-plugin</artifactId>
-                    <version>1.4.5</version>
-                    <executions>
-                        <execution>
-                            <id>start-jetty</id>
-                            <phase>pre-integration-test</phase>
-                            <goals><goal>start</goal></goals>
-                            <!--
-                            <configuration>
-                                <configuration>
-                                    <properties>
-                                        <cargo.jvmargs>-Xmx1024m -Xms256m -XX:MaxPermSize=256m</cargo.jvmargs>
-                                    </properties>
-                                </configuration>
-                            </configuration>
-                            -->
-                        </execution>
-                        <execution>
-                            <id>stop-jetty</id>
-                            <phase>post-integration-test</phase>
-                            <goals><goal>stop</goal></goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <container>
-                            <containerId>jetty8x</containerId>
-                            <!--<type>embedded</type>-->
-                            <log>${basedir}/target/cargo.log</log>
-                            <output>${basedir}/target/jetty.log</output>
-                        </container>
-
-                        <configuration>
-                            <properties>
-                                <cargo.servlet.port>8123</cargo.servlet.port>
-                                <cargo.logging>high</cargo.logging>
-                                <cargo.jvmargs>-Dzzz</cargo.jvmargs>
-                            </properties>
-                        </configuration>
-
-                        <deployables>
-                            <deployable>
-                                <pingURL>http://localhost:8123/common-resteasy/rest/profile</pingURL>
-                                <pingTimeout>600000</pingTimeout> <!-- 5 min, allow for slow Jenkins -->
-                                <properties>
-                                    <context>common-resteasy</context>
-                                </properties>
-                            </deployable>
-                        </deployables>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+            </plugin>
+        </plugins>
     </build>
-
 
 </project>

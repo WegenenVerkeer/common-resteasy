@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ This file is part of wegenenverkeer common-resteasy.
   ~ Copyright (c) AWV Agentschap Wegen en Verkeer, Vlaamse Gemeenschap
@@ -7,8 +8,6 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>common-resyteasy-web</artifactId>
-    <packaging>war</packaging>
 
     <parent>
         <groupId>be.wegenenverkeer.common</groupId>
@@ -16,9 +15,11 @@
         <version>1.2-SNAPSHOT</version>
     </parent>
 
+    <artifactId>common-resyteasy-web</artifactId>
+    <packaging>war</packaging>
+
     <name>WegenenVerkeer common RESTEasy demo</name>
     <description>Demo for common-resteasy helper stuff.</description>
-
 
     <dependencies>
         <dependency>
