@@ -20,6 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;
@@ -38,6 +39,9 @@ public class ConstraintViolationExceptionMapperTest {
 
     @Mock
     private PreProcessLoggingInterceptor preProcessLoggingInterceptor;
+
+    @Mock
+    private HttpServletRequest request;
 
     @Spy
     private RestJsonMapper jsonMapper = new RestJsonMapper();
