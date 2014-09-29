@@ -13,11 +13,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicate that the class should not be logged in the PreProcessLoggingInterceptor.
+ * Indicate that the class should be logged using the {@link Object#toString()} in the PreProcessLoggingInterceptor.
  * <p/>
  * Note: only works when annotated at the top-level, being the type for the body or response object.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DoNotLog {
+public @interface LogUsingToString {
 }
