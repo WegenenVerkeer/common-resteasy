@@ -15,10 +15,14 @@ import java.util.Map;
 
 /**
  * Exception which is thrown in case of a validation exception.
+ * <p/>
+ * In principle validation problems are caused by invalid user input (though not necessarily from user input
+ * which is passed in this call).
+ * <p/>
  * This can capture several validation problems, each marked with a key (field) which failed validation.
  * Several validation messages can be given for each key.
  */
-public class ValidationException extends RuntimeException {
+public class ValidationException extends AbstractRestException {
 
     /* key: field name, value: exception message */
     private final Map<String, List<String>> exceptions =

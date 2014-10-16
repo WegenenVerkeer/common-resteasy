@@ -52,8 +52,15 @@ public class ValidationExceptionMapperTest {
         System.out.println(res);
 
         assertThat(res.getStatus()).isEqualTo(Response.Status.PRECONDITION_FAILED.getStatusCode());
-        assertThat(res.getEntity()).isEqualTo("{ \"error\" : " +
-                "{\"nogEenVeld\":[\"Eerste boodschap.\",\"Extra boodschap voor veld.\"],\"veld\":[\"boodschap\"]}}");
+        assertThat( // grr, order of elements can change
+                res.getEntity().equals("{ \"error\" : {\"nogEenVeld\":[\"Eerste boodschap.\",\"Extra boodschap voor veld.\"],\"veld\":[\"boodschap\"]}}")
+                ||
+                res.getEntity().equals("{ \"error\" : {\"veld\":[\"boodschap\"],\"nogEenVeld\":[\"Eerste boodschap.\",\"Extra boodschap voor veld.\"]}}")
+                ||
+                res.getEntity().equals("{ \"error\" : {\"nogEenVeld\":[\"Extra boodschap voor veld.\",\"Eerste boodschap.\"],\"veld\":[\"boodschap\"]}}")
+                ||
+                res.getEntity().equals("{ \"error\" : {\"veld\":[\"boodschap\"],\"nogEenVeld\":[\"Extra boodschap voor veld.\",\"Eerste boodschap.\"]}}")
+        ).isTrue();
         verify(preProcessLoggingInterceptor).postProcessError(eq(oopsie),
                 startsWith("Applicatie gaf een (verwachtte) ValidationException:"));
 

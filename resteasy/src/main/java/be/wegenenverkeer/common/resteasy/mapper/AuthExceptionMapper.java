@@ -8,8 +8,8 @@
 package be.wegenenverkeer.common.resteasy.mapper;
 
 
+import be.wegenenverkeer.common.resteasy.exception.AuthException;
 import be.wegenenverkeer.common.resteasy.exception.ExceptionUtil;
-import be.wegenenverkeer.common.resteasy.exception.NotFoundException;
 import be.wegenenverkeer.common.resteasy.logging.PreProcessLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 @Component
-public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
+public class AuthExceptionMapper implements ExceptionMapper<AuthException> {
 
     @Autowired
     private PreProcessLoggingInterceptor preProcessLoggingInterceptor;
@@ -34,10 +34,10 @@ public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundExceptio
     private HttpServletRequest request;
 
     @Override
-    public Response toResponse(NotFoundException exception) {
-        preProcessLoggingInterceptor.postProcessError(exception, "De resource werd niet gevonden:");
+    public Response toResponse(AuthException exception) {
+        preProcessLoggingInterceptor.postProcessError(exception, "Onvoldoende rechten:");
         ExceptionUtil eu = new ExceptionUtil(exception);
-        return Response.status(Response.Status.NOT_FOUND)
+        return Response.status(Response.Status.UNAUTHORIZED)
                 .entity("{ \"error\" : {\"\":[\"" + eu.getEscapedConcatenatedMessage() + "\"]}}")
                 .header("Access-Control-Allow-Origin", request.getHeader("Origin"))
                 .header("Access-Control-Allow-Credentials", true)

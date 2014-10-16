@@ -8,22 +8,14 @@
 package be.wegenenverkeer.common.resteasy.exception;
 
 /**
- * Exception which can be thrown if the service fails. This indicates a problem in the server which is not caused by
- * (faulty) client input.
- * <p/>
- * This is not intended for recoverable errors. For recoverable errors, it is recommended to use
- * {@link ValidationException} instead.
- * <p/>
- * Contrary to the other AbstractRestExceptions, ServiceExceptions are logged as errors. The other exceptions require
- * fixes on the client side. This exception indicates a problem which needs fixing on the server side.
+ * Overkoepelende exception die gegooid wordt telkens er een fout optreedt in een rest service methode.
  */
-public class ServiceException extends AbstractRestException {
+public abstract class AbstractRestException extends RuntimeException {
 
     /**
      * No-arguments constructor.
      */
-    public ServiceException() {
-        super();
+    protected AbstractRestException() {
     }
 
     /**
@@ -31,7 +23,7 @@ public class ServiceException extends AbstractRestException {
      *
      * @param message message
      */
-    public ServiceException(String message) {
+    protected AbstractRestException(String message) {
         super(message);
     }
 
@@ -41,7 +33,7 @@ public class ServiceException extends AbstractRestException {
      * @param message message
      * @param cause cause
      */
-    public ServiceException(String message, Throwable cause) {
+    protected AbstractRestException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -50,7 +42,7 @@ public class ServiceException extends AbstractRestException {
      *
      * @param cause cause
      */
-    public ServiceException(Throwable cause) {
+    protected AbstractRestException(Throwable cause) {
         super(cause);
     }
 

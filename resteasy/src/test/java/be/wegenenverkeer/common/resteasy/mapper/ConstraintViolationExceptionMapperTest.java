@@ -61,10 +61,14 @@ public class ConstraintViolationExceptionMapperTest {
         Response res = mapper.toResponse(cve);
 
         assertThat(res.getStatus()).isEqualTo(Response.Status.PRECONDITION_FAILED.getStatusCode());
-        assertThat(
+        assertThat( // grr, order of elements can change
                 res.getEntity().equals("{ \"error\" : {\"var1\":[\"oopsie msg\"],\"var2\":[\"failure\",\"imsg\"]}}")
                 ||
                 res.getEntity().equals("{ \"error\" : {\"var1\":[\"oopsie msg\"],\"var2\":[\"imsg\",\"failure\"]}}")
+                ||
+                res.getEntity().equals("{ \"error\" : {\"var2\":[\"failure\",\"imsg\"],\"var1\":[\"oopsie msg\"]}}")
+                ||
+                res.getEntity().equals("{ \"error\" : {\"var2\":[\"imsg\",\"failure\"],\"var1\":[\"oopsie msg\"]}}")
         ).isTrue();
         verify(preProcessLoggingInterceptor).postProcessError(cve,
                 "Applicatie keerde terug met een (verwachtte) ConstraintViolation:");

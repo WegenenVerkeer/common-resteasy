@@ -8,22 +8,18 @@
 package be.wegenenverkeer.common.resteasy.exception;
 
 /**
- * Exception which can be thrown if the service fails. This indicates a problem in the server which is not caused by
- * (faulty) client input.
+ * Exception which can be thrown if authentication or authorization failed.
  * <p/>
- * This is not intended for recoverable errors. For recoverable errors, it is recommended to use
- * {@link ValidationException} instead.
- * <p/>
- * Contrary to the other AbstractRestExceptions, ServiceExceptions are logged as errors. The other exceptions require
- * fixes on the client side. This exception indicates a problem which needs fixing on the server side.
+ * Note that from a security point of view, it is better to use {@link NotFoundException} when the trying is not
+ * authorized to access a particular resource. For a normal user this distinction is not important. For a malignant
+ * user an {@link AuthException} can be a carrot to find ways to access the resource.
  */
-public class ServiceException extends AbstractRestException {
+public class AuthException extends AbstractRestException {
 
     /**
      * No-arguments constructor.
      */
-    public ServiceException() {
-        super();
+    public AuthException() {
     }
 
     /**
@@ -31,7 +27,7 @@ public class ServiceException extends AbstractRestException {
      *
      * @param message message
      */
-    public ServiceException(String message) {
+    public AuthException(String message) {
         super(message);
     }
 
@@ -41,7 +37,7 @@ public class ServiceException extends AbstractRestException {
      * @param message message
      * @param cause cause
      */
-    public ServiceException(String message, Throwable cause) {
+    public AuthException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -50,7 +46,7 @@ public class ServiceException extends AbstractRestException {
      *
      * @param cause cause
      */
-    public ServiceException(Throwable cause) {
+    public AuthException(Throwable cause) {
         super(cause);
     }
 

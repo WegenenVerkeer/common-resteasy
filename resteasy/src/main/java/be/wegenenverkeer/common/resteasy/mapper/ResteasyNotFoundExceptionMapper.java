@@ -9,8 +9,8 @@ package be.wegenenverkeer.common.resteasy.mapper;
 
 
 import be.wegenenverkeer.common.resteasy.exception.ExceptionUtil;
-import be.wegenenverkeer.common.resteasy.exception.NotFoundException;
 import be.wegenenverkeer.common.resteasy.logging.PreProcessLoggingInterceptor;
+import org.jboss.resteasy.spi.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 @Component
-public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
+public class ResteasyNotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
 
     @Autowired
     private PreProcessLoggingInterceptor preProcessLoggingInterceptor;

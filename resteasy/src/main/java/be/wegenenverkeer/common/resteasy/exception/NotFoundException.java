@@ -8,22 +8,18 @@
 package be.wegenenverkeer.common.resteasy.exception;
 
 /**
- * Exception which can be thrown if the service fails. This indicates a problem in the server which is not caused by
- * (faulty) client input.
+ * Exception which can be thrown if a resource if not found.
  * <p/>
- * This is not intended for recoverable errors. For recoverable errors, it is recommended to use
- * {@link ValidationException} instead.
- * <p/>
- * Contrary to the other AbstractRestExceptions, ServiceExceptions are logged as errors. The other exceptions require
- * fixes on the client side. This exception indicates a problem which needs fixing on the server side.
+ * Guideline is to use this exception when an object with is references through a non-optional parameter cannot be
+ * accessed. This could be because the object does not exist or because of insufficient authorization. The non-optional
+ * parameter could be a path parameter, a query parameter or a required field in the body.
  */
-public class ServiceException extends AbstractRestException {
+public class NotFoundException extends AbstractRestException {
 
     /**
      * No-arguments constructor.
      */
-    public ServiceException() {
-        super();
+    public NotFoundException() {
     }
 
     /**
@@ -31,7 +27,7 @@ public class ServiceException extends AbstractRestException {
      *
      * @param message message
      */
-    public ServiceException(String message) {
+    public NotFoundException(String message) {
         super(message);
     }
 
@@ -41,7 +37,7 @@ public class ServiceException extends AbstractRestException {
      * @param message message
      * @param cause cause
      */
-    public ServiceException(String message, Throwable cause) {
+    public NotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -50,7 +46,7 @@ public class ServiceException extends AbstractRestException {
      *
      * @param cause cause
      */
-    public ServiceException(Throwable cause) {
+    public NotFoundException(Throwable cause) {
         super(cause);
     }
 

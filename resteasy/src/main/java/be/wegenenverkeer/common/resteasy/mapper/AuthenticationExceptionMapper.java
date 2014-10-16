@@ -35,7 +35,7 @@ public class AuthenticationExceptionMapper implements ExceptionMapper<Authentica
 
     @Override
     public Response toResponse(AuthenticationException exception) {
-        preProcessLoggingInterceptor.postProcessError(exception, "De voucher en ldapid zijn niet geldig:");
+        preProcessLoggingInterceptor.postProcessError(exception, "Onvoldoende rechten:");
         ExceptionUtil eu = new ExceptionUtil(exception);
         return Response.status(Response.Status.UNAUTHORIZED)
                 .entity("{ \"error\" : {\"authenticatie\":[\"" + eu.getEscapedConcatenatedMessage() + "\"]}}")

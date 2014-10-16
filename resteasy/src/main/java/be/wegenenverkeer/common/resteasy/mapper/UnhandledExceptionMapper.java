@@ -8,12 +8,13 @@
 package be.wegenenverkeer.common.resteasy.mapper;
 
 
+import be.wegenenverkeer.common.resteasy.exception.AuthException;
 import be.wegenenverkeer.common.resteasy.exception.ExceptionUtil;
+import be.wegenenverkeer.common.resteasy.exception.NotFoundException;
 import be.wegenenverkeer.common.resteasy.exception.ServiceException;
 import be.wegenenverkeer.common.resteasy.exception.ValidationException;
 import be.wegenenverkeer.common.resteasy.logging.PreProcessLoggingInterceptor;
 import org.hibernate.validator.method.MethodConstraintViolationException;
-import org.jboss.resteasy.spi.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
@@ -43,6 +44,12 @@ public class UnhandledExceptionMapper implements ExceptionMapper<Exception> {
     private NotFoundExceptionMapper notFoundExceptionMapper;
 
     @Autowired
+    private AuthExceptionMapper authExceptionMapper;
+
+    @Autowired
+    private ResteasyNotFoundExceptionMapper resteasyNotFoundExceptionMapper;
+
+    @Autowired
     private AuthenticationExceptionMapper authenticationExceptionMapper;
 
     @Autowired
@@ -68,6 +75,12 @@ public class UnhandledExceptionMapper implements ExceptionMapper<Exception> {
         } else if (exception instanceof NotFoundException) {
             NotFoundException nfe = (NotFoundException) exception;
             return notFoundExceptionMapper.toResponse(nfe);
+        } else if (exception instanceof AuthException) {
+            AuthException ae = (AuthException) exception;
+            return authExceptionMapper.toResponse(ae);
+        } else if (exception instanceof org.jboss.resteasy.spi.NotFoundException) {
+            org.jboss.resteasy.spi.NotFoundException nfe = (org.jboss.resteasy.spi.NotFoundException) exception;
+            return resteasyNotFoundExceptionMapper.toResponse(nfe);
         } else if (exception instanceof AuthenticationException) {
             AuthenticationException ae = (AuthenticationException) exception;
             return authenticationExceptionMapper.toResponse(ae);

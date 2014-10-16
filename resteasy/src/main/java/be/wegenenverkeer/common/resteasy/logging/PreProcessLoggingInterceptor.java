@@ -8,8 +8,9 @@
 package be.wegenenverkeer.common.resteasy.logging;
 
 import be.eliwan.profiling.api.ProfilingSink;
+import be.wegenenverkeer.common.resteasy.exception.AbstractRestException;
 import be.wegenenverkeer.common.resteasy.exception.ExceptionUtil;
-import be.wegenenverkeer.common.resteasy.exception.ValidationException;
+import be.wegenenverkeer.common.resteasy.exception.ServiceException;
 import be.wegenenverkeer.common.resteasy.json.InputStreamSerializer;
 import be.wegenenverkeer.common.resteasy.json.RestJsonMapper;
 import org.jboss.resteasy.annotations.interception.ServerInterceptor;
@@ -32,7 +33,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
-import javax.validation.ConstraintViolation;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
@@ -234,7 +234,7 @@ public class PreProcessLoggingInterceptor
         }
         sb.append("\nOOPS: ").append(msg).append(NEWLINE);
         ExceptionUtil eu = new ExceptionUtil(exception);
-        if (exception instanceof ValidationException || exception instanceof ConstraintViolation) {
+        if (exception instanceof AbstractRestException && !(exception instanceof ServiceException)) {
             // no stack trace, log at info level
             finishCall(false);
         } else {
