@@ -135,7 +135,7 @@ public class ProfilingServiceImpl implements ProfilingService {
     private void groupLine(StringBuilder sb, String label, long totalTime, long invocationCount, long runtime) {
         double average = 0.0;
         if (invocationCount > 0) {
-            average = ((double) totalTime) / invocationCount;
+            average = ((double) runtime) / invocationCount;
         }
         double percentage = 0;
         if (totalTime > 0) {
