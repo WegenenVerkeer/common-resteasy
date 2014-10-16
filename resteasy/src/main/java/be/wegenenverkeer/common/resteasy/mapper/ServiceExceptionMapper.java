@@ -35,9 +35,9 @@ public class ServiceExceptionMapper implements ExceptionMapper<ServiceException>
 
     @Override
     public Response toResponse(ServiceException exception) {
-        preProcessLoggingInterceptor.postProcessError(exception, "Applicatie gaf een (verwachtte) ServiceException:");
+        preProcessLoggingInterceptor.postProcessError(exception, "Applicatie gaf een ServiceException:");
         ExceptionUtil eu = new ExceptionUtil(exception);
-        return Response.status(Response.Status.PRECONDITION_FAILED)
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                 .entity("{ \"error\" : {\"\":[\"" + eu.getEscapedConcatenatedMessage() + "\"]}}")
                 .header("Access-Control-Allow-Origin", request.getHeader("Origin"))
                 .header("Access-Control-Allow-Credentials", true)
