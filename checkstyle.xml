@@ -110,7 +110,7 @@
         <module name="EmptyBlock"/>
         <!-- Checks the placement of left curly braces on types, methods and other blocks:  -->
         <module name="LeftCurly">
-            <property name="maxLineLength" value="120"/>
+            <property name="maxLineLength" value="180"/>
         </module>
         <!-- Checks for braces around code blocks. -->
         <module name="NeedBraces"/>
@@ -396,7 +396,7 @@
         <!--<module name="FileLength"/>-->
         <!-- Checks for long lines. -->
         <module name="LineLength">
-            <property name="max" value="120"/>
+            <property name="max" value="180"/>
         </module>
         <!-- Checks for long methods. -->
         <module name="MethodLength"/>
