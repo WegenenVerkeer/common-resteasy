@@ -80,6 +80,12 @@
         <property name="checkFormat" value="InnerAssignment"/>
     </module>
 
+    <module name="SuppressionCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE METHOD_NAME\: OFF"/>
+        <property name="onCommentFormat" value="CHECKSTYLE METHOD_NAME\: ON"/>
+        <property name="checkFormat" value="MethodName"/>
+    </module>
+
     <module name="TreeWalker">
 
         <property name="cacheFile" value="./checkstyle.cache"/>

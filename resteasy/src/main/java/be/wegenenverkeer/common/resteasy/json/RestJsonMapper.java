@@ -15,6 +15,9 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Main entry for the Json serializer/deserializer.
  */
@@ -31,6 +34,14 @@ public class RestJsonMapper extends ObjectMapper {
         this.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         this.setDateFormat(new Iso8601AndOthersDateFormat());
+
+        addClassSerializer(LocalDate.class, new LocalDateSerializer());
+        addClassSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+
+        SimpleModule testModule = new SimpleModule("jsr310", new Version(1, 0, 0, null));
+        testModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        testModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+        this.registerModule(testModule);
     }
 
     /**

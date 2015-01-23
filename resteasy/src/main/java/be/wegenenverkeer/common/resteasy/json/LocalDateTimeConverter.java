@@ -11,8 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jboss.resteasy.spi.StringConverter;
 import org.springframework.stereotype.Component;
 
-import java.text.ParsePosition;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.ws.rs.ext.Provider;
 
 /**
@@ -20,17 +19,17 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 @Component
-public class DateConverter implements StringConverter<Date> {
+public class LocalDateTimeConverter implements StringConverter<LocalDateTime> {
 
-    private Iso8601AndOthersDateFormat iso8601AndOthers = new Iso8601AndOthersDateFormat();
+    private Iso8601AndOthersLocalDateTimeFormat iso8601AndOthers = new Iso8601AndOthersLocalDateTimeFormat();
 
     @Override
-    public Date fromString(String str) {
-        Date date = null;
+    public LocalDateTime fromString(String str) {
+        LocalDateTime date = null;
 
         if (StringUtils.isNotBlank(str)) {
             try {
-                return iso8601AndOthers.parse(str, new ParsePosition(0));
+                return iso8601AndOthers.parse(str);
             } catch (IllegalArgumentException iae) {
                 // ignore, try next format
                 date = null; // dummy
@@ -40,7 +39,7 @@ public class DateConverter implements StringConverter<Date> {
     }
 
     @Override
-    public String toString(Date value) {
+    public String toString(LocalDateTime value) {
         return iso8601AndOthers.format(value);
     }
 }
