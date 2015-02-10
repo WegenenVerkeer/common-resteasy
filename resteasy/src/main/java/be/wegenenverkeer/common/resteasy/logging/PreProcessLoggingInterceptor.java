@@ -57,25 +57,22 @@ public class PreProcessLoggingInterceptor
     private static final String NEWLINE = "\n";
     private static final String INDENT = "\n\t";
     private static final String ARROW = " -> ";
-    private static final ThreadLocal<StringBuilder> STRING_BUILDER = new ThreadLocal<StringBuilder>();
+    private static final ThreadLocal<StringBuilder> STRING_BUILDER = new ThreadLocal<>();
 
     /**
      * String indicating the grouping for the profiling. Each service handled independently..
      */
-    public static final ThreadLocal<String> PROFILE_GROUP = new ThreadLocal<String>();
+    public static final ThreadLocal<String> PROFILE_GROUP = new ThreadLocal<>();
 
     /**
      * Service request URL.
      */
-    public static final ThreadLocal<Long> START_MOMENT = new ThreadLocal<Long>();
+    public static final ThreadLocal<Long> START_MOMENT = new ThreadLocal<>();
 
     @Autowired(required = false)
     @Qualifier("restProfilingRegistrar")
-    private ProfilingSink profilingContainer = new ProfilingSink() {
-        @Override
-        public void register(String group, long duration) {
-            // do nothing
-        }
+    private ProfilingSink profilingContainer = (group, duration) -> {
+        // do nothing
     };
 
 
