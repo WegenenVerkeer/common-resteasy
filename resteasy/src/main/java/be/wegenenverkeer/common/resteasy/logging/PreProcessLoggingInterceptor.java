@@ -262,10 +262,11 @@ public class PreProcessLoggingInterceptor
     }
 
     private boolean contains(Annotation[] list, Class annotation) {
-        for (Annotation test : list) {
-            System.out.println(test);
-            if (test.getClass().isAssignableFrom(annotation)) {
-                return true;
+        if (null != list) {
+            for (Annotation test : list) {
+                if (test.getClass().isAssignableFrom(annotation)) {
+                    return true;
+                }
             }
         }
         return false;
