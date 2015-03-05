@@ -31,6 +31,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Map;
 import javax.ws.rs.WebApplicationException;
@@ -194,15 +195,12 @@ public class PreProcessLoggingInterceptor
             sb.append(result.getClass().toString());
             sb.append("\nOutput document:\n");
 
-            /*
             try {
                 if (result.getClass().isAnnotationPresent(DoNotLog.class)) {
                     sb.append("<Not serialized " + result.getClass().toString() + ">");
-                } else if (response.getResourceMethod().isAnnotationPresent(DoNotLogResponse.class)) {
-                    sb.append(
-                            String.format("<Not serialized response from method '%s' in %s>",
-                                    response.getResourceMethod().getName(),
-                                    response.getResourceMethod().getDeclaringClass().toString()));
+                } else if (contains(response.getAnnotations(), DoNotLogResponse.class)) {
+                    sb.append(String.format("<Not serialized response from method '%s>",
+                            PROFILE_GROUP.get()));
                 } else if (result.getClass().isAnnotationPresent(LogUsingToString.class)) {
                     sb.append(result.toString());
                 } else if (result instanceof String) {
@@ -214,7 +212,6 @@ public class PreProcessLoggingInterceptor
             } catch (IOException e) {
                 LOG.warn("JSON probleem met " + result, e);
             }
-            */
         }
         finishCall(false);
     }
@@ -262,6 +259,16 @@ public class PreProcessLoggingInterceptor
         PROFILE_GROUP.remove();
         START_MOMENT.remove();
         STRING_BUILDER.remove();
+    }
+
+    private boolean contains(Annotation[] list, Class annotation) {
+        for (Annotation test : list) {
+            System.out.println(test);
+            if (test.getClass().isAssignableFrom(annotation)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
