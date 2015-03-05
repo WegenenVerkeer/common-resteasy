@@ -7,12 +7,12 @@
 
 package be.wegenenverkeer.common.resteasy.json;
 
-import org.codehaus.jackson.Version;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.JsonSerializer;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.module.SimpleModule;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -30,15 +30,15 @@ public class RestJsonMapper extends ObjectMapper {
     public RestJsonMapper() {
         super();
 
-        this.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
-        this.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         this.setDateFormat(new Iso8601AndOthersDateFormat());
 
         addClassSerializer(LocalDate.class, new LocalDateSerializer());
         addClassSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
 
-        SimpleModule testModule = new SimpleModule("jsr310", new Version(1, 0, 0, null));
+        SimpleModule testModule = new SimpleModule("jsr310", new Version(1, 0, 0, "", "be.wegenenverkeer.common", "common-resteasy"));
         testModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());
         testModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         this.registerModule(testModule);

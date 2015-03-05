@@ -7,9 +7,9 @@
 
 package be.wegenenverkeer.common.resteasy.json;
 
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.deser.std.FromStringDeserializer;
 
 import java.io.IOException;
 import java.time.LocalDate;

@@ -14,7 +14,7 @@ import be.wegenenverkeer.common.resteasy.exception.ServiceException;
 import be.wegenenverkeer.common.resteasy.json.InputStreamSerializer;
 import be.wegenenverkeer.common.resteasy.json.RestJsonMapper;
 import org.jboss.resteasy.annotations.interception.ServerInterceptor;
-import org.jboss.resteasy.core.ResourceMethod;
+import org.jboss.resteasy.core.ResourceMethodInvoker;
 import org.jboss.resteasy.core.ServerResponse;
 import org.jboss.resteasy.spi.Failure;
 import org.jboss.resteasy.spi.HttpRequest;
@@ -91,7 +91,7 @@ public class PreProcessLoggingInterceptor
      * @throws WebApplicationException De web application exception
      */
     @Override
-    public ServerResponse preProcess(HttpRequest request, ResourceMethod method)
+    public ServerResponse preProcess(HttpRequest request, ResourceMethodInvoker method)
             throws Failure, WebApplicationException {
         START_MOMENT.set(System.currentTimeMillis());
         PROFILE_GROUP.set(method.getMethod().getDeclaringClass().getSimpleName() + ":" + method.getMethod().getName());
@@ -194,6 +194,7 @@ public class PreProcessLoggingInterceptor
             sb.append(result.getClass().toString());
             sb.append("\nOutput document:\n");
 
+            /*
             try {
                 if (result.getClass().isAnnotationPresent(DoNotLog.class)) {
                     sb.append("<Not serialized " + result.getClass().toString() + ">");
@@ -213,6 +214,7 @@ public class PreProcessLoggingInterceptor
             } catch (IOException e) {
                 LOG.warn("JSON probleem met " + result, e);
             }
+            */
         }
         finishCall(false);
     }

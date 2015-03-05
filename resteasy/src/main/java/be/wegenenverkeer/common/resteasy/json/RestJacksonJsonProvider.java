@@ -7,9 +7,9 @@
 
 package be.wegenenverkeer.common.resteasy.json;
 
-import org.codehaus.jackson.jaxrs.Annotations;
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.jaxrs.cfg.Annotations;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;

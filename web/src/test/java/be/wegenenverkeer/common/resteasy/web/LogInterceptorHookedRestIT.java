@@ -49,7 +49,7 @@ public class LogInterceptorHookedRestIT {
         response = given().header("accept", "text/plain").when().get("/rest/profile?clear=true").asString();
 
         assertThat(response).contains("++++ REST calls:");
-        assertThat(response).doesNotContain("SampleService:sample");
+        assertThat(response).doesNotContain("SampleServiceImpl:sample");
 
         // do actual "testing" call
 
@@ -62,6 +62,7 @@ public class LogInterceptorHookedRestIT {
         response = given().header("accept", "text/plain").when().get("/rest/profile").asString();
 
         assertThat(response).contains("++++ REST calls:");
-        assertThat(response).contains("SampleService:sample");
+        assertThat(response).contains("SampleServiceImpl:sample");
     }
+
 }

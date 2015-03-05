@@ -50,6 +50,9 @@ public class UnhandledExceptionMapper implements ExceptionMapper<Exception> {
     private ResteasyNotFoundExceptionMapper resteasyNotFoundExceptionMapper;
 
     @Autowired
+    private JaxRsNotFoundExceptionMapper jaxRsNotFoundExceptionMapper;
+
+    @Autowired
     private AuthenticationExceptionMapper authenticationExceptionMapper;
 
     @Autowired
@@ -78,6 +81,9 @@ public class UnhandledExceptionMapper implements ExceptionMapper<Exception> {
         } else if (exception instanceof AuthException) {
             AuthException ae = (AuthException) exception;
             return authExceptionMapper.toResponse(ae);
+        } else if (exception instanceof javax.ws.rs.NotFoundException) {
+            javax.ws.rs.NotFoundException nfe = (javax.ws.rs.NotFoundException) exception;
+            return jaxRsNotFoundExceptionMapper.toResponse(nfe);
         } else if (exception instanceof org.jboss.resteasy.spi.NotFoundException) {
             org.jboss.resteasy.spi.NotFoundException nfe = (org.jboss.resteasy.spi.NotFoundException) exception;
             return resteasyNotFoundExceptionMapper.toResponse(nfe);

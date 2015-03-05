@@ -26,7 +26,7 @@ import java.util.TimeZone;
  * <p/>
  * All other methods but parse and format and clone are undefined behavior.
  *
- * @see org.codehaus.jackson.map.util.ISO8601Utils
+ * @see com.fasterxml.jackson.map.util.ISO8601Utils
  */
 public class Iso8601NozoneFormat extends DateFormat {
     private static final long serialVersionUID = 1L;

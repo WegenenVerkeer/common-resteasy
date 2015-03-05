@@ -16,20 +16,28 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
+    <context-param>
+        <param-name>resteasy.logger.type</param-name>
+        <param-value>SLF4J</param-value>
+    </context-param>
 
     <listener>
         <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
     </listener>
 
-	<listener>
-		<listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
-	</listener>
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>RESTEasy</servlet-name>
         <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+        <!--
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.restfully.shop.services.ShoppingApplication</param-value>
+        </init-param>-->
     </servlet>
-
     <servlet-mapping>
         <servlet-name>RESTEasy</servlet-name>
         <url-pattern>/rest/*</url-pattern>
