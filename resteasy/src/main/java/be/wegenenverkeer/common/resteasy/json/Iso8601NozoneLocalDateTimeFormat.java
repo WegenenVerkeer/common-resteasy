@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
  * <p/>
  * All other methods but parse and format and clone are undefined behavior.
  *
- * @see org.codehaus.map.util.ISO8601Utils
+ * @see com.fasterxml.jackson.databind.util.ISO8601Utils
  */
 public class Iso8601NozoneLocalDateTimeFormat {
 

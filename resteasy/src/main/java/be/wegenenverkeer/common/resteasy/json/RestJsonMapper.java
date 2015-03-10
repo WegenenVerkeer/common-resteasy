@@ -11,8 +11,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -24,6 +28,8 @@ import java.time.LocalDateTime;
 @Component
 public class RestJsonMapper extends ObjectMapper {
 
+    private static final Logger LOG = LoggerFactory.getLogger(RestJsonMapper.class);
+
     /**
      * No-arguments constructor.
      */
@@ -32,16 +38,29 @@ public class RestJsonMapper extends ObjectMapper {
 
         this.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
         this.setDateFormat(new Iso8601AndOthersDateFormat());
-
-        addClassSerializer(LocalDate.class, new LocalDateSerializer());
-        addClassSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
 
         SimpleModule testModule = new SimpleModule("jsr310", new Version(1, 0, 0, "", "be.wegenenverkeer.common", "common-resteasy"));
         testModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());
         testModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+        testModule.addSerializer(LocalDate.class, new LocalDateSerializer());
+        testModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         this.registerModule(testModule);
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        if (null == classLoader) {
+            classLoader = this.getClass().getClassLoader();
+        }
+        try {
+            Class clazz = classLoader.loadClass("com.fasterxml.jackson.datatype.joda.JodaModule");
+            Object instance = clazz.newInstance();
+            this.registerModule((Module) instance);
+        } catch (Exception ex) {
+            // ignore, we do not require joda-time, but inform the user
+            LOG.warn("Add jackson-datatype-joda dependency for joda-time support.");
+        }
     }
 
     /**

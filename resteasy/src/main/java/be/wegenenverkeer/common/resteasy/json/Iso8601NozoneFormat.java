@@ -7,11 +7,11 @@
 
 package be.wegenenverkeer.common.resteasy.json;
 
-import org.joda.time.LocalDateTime;
-
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.ParsePosition;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -26,7 +26,7 @@ import java.util.TimeZone;
  * <p/>
  * All other methods but parse and format and clone are undefined behavior.
  *
- * @see com.fasterxml.jackson.map.util.ISO8601Utils
+ * @see com.fasterxml.jackson.databind.util.ISO8601Utils
  */
 public class Iso8601NozoneFormat extends DateFormat {
     private static final long serialVersionUID = 1L;
@@ -175,12 +175,8 @@ public class Iso8601NozoneFormat extends DateFormat {
                 }
             }
 
-            return new LocalDateTime(year, month, day, hour, minutes, seconds, milliseconds).toDate();
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException(PARSE_FAILED + date, e);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(PARSE_FAILED + date, e);
-        } catch (IllegalArgumentException e) {
+            return Date.from(LocalDateTime.of(year, month, day, hour, minutes, seconds, milliseconds).atZone(ZoneId.systemDefault()).toInstant());
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw new IllegalArgumentException(PARSE_FAILED + date, e);
         }
     }

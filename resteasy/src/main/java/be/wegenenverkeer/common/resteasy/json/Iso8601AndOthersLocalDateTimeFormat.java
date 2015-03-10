@@ -26,7 +26,7 @@ import java.util.Arrays;
  * <p/>
  * All other methods but parse and format and clone are undefined behavior.
  *
- * @see com.fasterxml.jackson.map.util.ISO8601Utils
+ * @see com.fasterxml.jackson.databind.util.ISO8601Utils
  */
 public class Iso8601AndOthersLocalDateTimeFormat {
 

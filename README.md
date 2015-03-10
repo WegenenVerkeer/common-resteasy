@@ -84,3 +84,37 @@ There is integration for gathering profiling data. For the sample this results i
 
 Have a look at the web project for a sample of use with profiling (based on [ew-profiling](https://github.com/joachimvda/ew-profiling)).
 After compilations, you can use "mvn cargo:run" to run the demo application and surf to [http://localhost:8123/common-resteasy/]. 
+
+## JSON, dates and timestamps
+
+common-resteasy uses RestJsonMapper internally. This is a Jackson JSON mapper which includes support for java.util.LocalDateTime and java.util.LocalDate.
+java.lang.Date instances are treated as local timestamps. When reading timestamps, the timezone indication is ignored.
+ 
+If you want support for joda-time you should include
+
+    <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-joda</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+    
+Beware though that joda-time non-local dates and times will be serialized as GMT timezone. For for example, 
+
+    new DateTime(2014, 2, 14, 10, 11, 12) 
+
+with the current timezone set to Brussel time (winter time, so no DST, GMT+01:00) will se serialized as
+
+    2014-02-14T09:11:12.000Z
+    
+This is not really surprising, however
+     
+     new DateMidnight(2014, 2, 14)
+     
+with the current timezone set to Brussel time (winter time, so no DST, GMT+01:00) will se serialized as
+
+    2014-02-13
+    
+    
+
+
+
