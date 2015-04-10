@@ -7,16 +7,22 @@
 
 package be.wegenenverkeer.common.resteasy.json;
 
+import com.fasterxml.jackson.databind.util.ISO8601Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.resteasy.util.DateUtil;
 
+import java.text.ParseException;
+import java.text.ParsePosition;
 import java.time.DateTimeException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Provide a fast thread-safe formatter/parser DateFormat for ISO8601 dates ONLY.
@@ -66,7 +72,16 @@ public class Iso8601AndOthersLocalDateTimeFormat {
         LocalDateTime date = null;
 
         if (StringUtils.isNotBlank(str)) {
-            // try ISO 8601 format first
+            // try full ISO 8601 format first
+            try {
+                Date timestamp = ISO8601Utils.parse(str, new ParsePosition(0));
+                Instant instant = Instant.ofEpochMilli(timestamp.getTime());
+                return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+            } catch (IllegalArgumentException | ParseException ex) {
+                // ignore, try next format
+                date = null; // dummy
+            }
+            // then try ISO 8601 format without timezone
             try {
                 return LocalDateTime.from(iso8601NozoneFormat.parse(str));
             } catch (IllegalArgumentException | DateTimeParseException ex) {
