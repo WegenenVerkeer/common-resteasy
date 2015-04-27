@@ -12,11 +12,11 @@
     <parent>
         <groupId>be.wegenenverkeer.common</groupId>
         <artifactId>common-parent</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
     </parent>
 
     <artifactId>common-resteasy-parent</artifactId>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.2</version>
     <packaging>pom</packaging>
 
     <name>WegenenVerkeer Common RESTEasy Parent POM</name>
@@ -38,11 +38,11 @@
     <distributionManagement>
         <repository>
             <id>awv-releases</id>
-            <url>http://dev-colab.awv.vlaanderen.be/nexus/content/repositories/releases</url>
+            <url>http://collab.mow.vlaanderen.be/nexus/content/repositories/releases</url>
         </repository>
         <snapshotRepository>
             <id>awv-snapshots</id>
-            <url>http://dev-colab.awv.vlaanderen.be/nexus/content/repositories/snapshots</url>
+            <url>http://collab.mow.vlaanderen.be/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
