@@ -261,10 +261,10 @@ public class PreProcessLoggingInterceptor
         STRING_BUILDER.remove();
     }
 
-    private boolean contains(Annotation[] list, Class annotation) {
+    private boolean contains(Annotation[] list, Class<?> annotation) {
         if (null != list) {
             for (Annotation test : list) {
-                if (test.getClass().isAssignableFrom(annotation)) {
+                if (annotation.isAssignableFrom(test.getClass())) {
                     return true;
                 }
             }
