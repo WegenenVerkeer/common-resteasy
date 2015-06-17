@@ -218,8 +218,6 @@
         <module name="IllegalThrows"/>
         <!-- Ensures there is a package declaration and (optionally) in the correct directory. -->
         <module name="PackageDeclaration"/>
-        <!-- Ensures that the setUp(), tearDown()methods are named correctly, have no arguments, return void and are either public or protected. -->
-        <module name="JUnitTestCase"/>
         <!-- Restricts return statements to a specified count (default = 2). -->
         <!--<module name="ReturnCount"/>-->
         <!-- Checks that particular class are never used as types in variable declarations, return values or parameters. -->
