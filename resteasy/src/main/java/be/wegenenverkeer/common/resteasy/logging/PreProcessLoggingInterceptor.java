@@ -197,10 +197,9 @@ public class PreProcessLoggingInterceptor
 
             try {
                 if (result.getClass().isAnnotationPresent(DoNotLog.class)) {
-                    sb.append("<Not serialized " + result.getClass().toString() + ">");
+                    sb.append("<Not serialized ").append(result.getClass().toString()).append(">");
                 } else if (contains(response.getAnnotations(), DoNotLogResponse.class)) {
-                    sb.append(String.format("<Not serialized response from method '%s>",
-                            PROFILE_GROUP.get()));
+                    sb.append(String.format("<Not serialized response from method '%s>", PROFILE_GROUP.get()));
                 } else if (result.getClass().isAnnotationPresent(LogUsingToString.class)) {
                     sb.append(result.toString());
                 } else if (result instanceof String) {
