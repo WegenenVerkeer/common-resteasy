@@ -9,6 +9,7 @@ package be.wegenenverkeer.common.resteasy.mapper;
 
 
 import be.wegenenverkeer.common.resteasy.exception.AuthException;
+import be.wegenenverkeer.common.resteasy.exception.ConflictException;
 import be.wegenenverkeer.common.resteasy.exception.ExceptionUtil;
 import be.wegenenverkeer.common.resteasy.exception.NotFoundException;
 import be.wegenenverkeer.common.resteasy.exception.ServiceException;
@@ -62,6 +63,9 @@ public class UnhandledExceptionMapper implements ExceptionMapper<Exception> {
     private MethodConstraintViolationExceptionMapper methodConstraintViolationExceptionMapper;
 
     @Autowired
+    private ConflictExceptionMapper conflictExceptionMapper;
+
+    @Autowired
     private PreProcessLoggingInterceptor preProcessLoggingInterceptor;
 
     @Context
@@ -96,6 +100,9 @@ public class UnhandledExceptionMapper implements ExceptionMapper<Exception> {
         } else if (exception instanceof MethodConstraintViolationException) {
             MethodConstraintViolationException mcve = (MethodConstraintViolationException) exception;
             return methodConstraintViolationExceptionMapper.toResponse(mcve);
+        } else if (exception instanceof ConflictException) {
+            ConflictException conflictException = (ConflictException) exception;
+            return conflictExceptionMapper.toResponse(conflictException);
         } else {
             preProcessLoggingInterceptor.postProcessError(exception, "Kritische fout gedetecteerd:");
             ExceptionUtil eu = new ExceptionUtil(exception);
